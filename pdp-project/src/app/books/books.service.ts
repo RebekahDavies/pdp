@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Book} from './books-list/model/book';
 import {map} from 'rxjs/operators';
+import {isArray} from 'rxjs/internal-compatibility';
 
 @Injectable() export class BooksService {
   constructor(private httpClient: HttpClient) {
@@ -10,8 +11,8 @@ import {map} from 'rxjs/operators';
   baseUrl = '/api/books';
   // create a header object which can be attached to http requests
   headers = new HttpHeaders()
-    .set('content-type', 'application.json');
-    // .set('Access-Control-Allow-Origin', '*');
+    .set('content-type', 'application.json')
+    .set('Access-Control-Allow-Origin', '*');
 
   /**
    * Returns a list of books
@@ -23,17 +24,21 @@ import {map} from 'rxjs/operators';
       if (!headers.has('content-type')) {
         headers.append('content-type', 'application.json');
       }
-      // if (!headers.has('Access-Control-Allow-Origin')) {
-      //   headers.append('Access-Control-Allow-Origin', '*');
-      // }
+      if (!headers.has('Access-Control-Allow-Origin')) {
+        headers.append('Access-Control-Allow-Origin', '*');
+      }
     }
     const resp = this.httpClient.get(this.baseUrl, {headers: this.headers});
     return resp.pipe(
-      map((res) => {
-        const list: Book[] = res[0];
-        for (let i = list.length; i > 0; i--) {
-          const book: Book = list[i] as Book;
-          list.push(book);
+      map((res: Book | Book[] ) => {
+        const list: Book[] = [];
+        if (isArray(res)) {
+          for (let i = 0; i < res.length; i++) {
+            const book: Book = res[i] as Book;
+            list.push(book);
+          }
+        } else {
+          list.push(res);
         }
         return list;
       })

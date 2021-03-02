@@ -1,5 +1,10 @@
-<ul>
-  <li>Throne of Glass</li>
-  <li>The Hobbit</li>
-  <li>Pride and Prejudice</li>
-</ul>
+hello
+<div *ngIf="books">
+  <div class="book" *ngFor="let book of books">
+    <h2>{{book.title}}</h2>
+    <p>isbn10: {{book.isbn10}}</p>
+    <p>title: {{book.title}}</p>
+    <p>author: {{book.author}}</p>
+  </div>
+</div>
+
