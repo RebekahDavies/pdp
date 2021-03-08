@@ -4,9 +4,10 @@ import {Observable} from 'rxjs';
 import {Book} from './books-list/model/book';
 import {map} from 'rxjs/operators';
 import {isArray} from 'rxjs/internal-compatibility';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable() export class BooksService {
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private toastr: ToastrService) {
   }
   baseUrl = '/api/books';
   // create a header object which can be attached to http requests
@@ -28,19 +29,26 @@ import {isArray} from 'rxjs/internal-compatibility';
         headers.append('Access-Control-Allow-Origin', '*');
       }
     }
-    const resp = this.httpClient.get(this.baseUrl, {headers: this.headers});
+    const resp = this.httpClient.get(this.baseUrl + '/1', {headers: this.headers, observe: 'response'});
     return resp.pipe(
-      map((res: Book | Book[] ) => {
-        const list: Book[] = [];
-        if (isArray(res)) {
-          for (let i = 0; i < res.length; i++) {
-            const book: Book = res[i] as Book;
-            list.push(book);
+      map((res ) => {
+        if(res.status === 200) {
+          const list: Book[] = [];
+          if (isArray(res.body)) {
+            for (let i = 0; i < res.body.length; i++) {
+              const book: Book = res.body[i] as Book;
+              list.push(book);
+            }
+          } else {
+            list.push(res.body as Book);
           }
-        } else {
-          list.push(res);
+          return list;
+          this.toastr.success('Success!');
         }
-        return list;
+        else {
+          console.log('booooooo');
+          this.toastr.error('Boo!' + res.statusText, res.status.toString());
+        }
       })
     );
   }

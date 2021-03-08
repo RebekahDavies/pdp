@@ -1,4 +1,4 @@
-<h1>Books</h1>
+<h1 (click)="popToast()">Books</h1>
 
 <book-list
   *ngIf="books$ | async as books"

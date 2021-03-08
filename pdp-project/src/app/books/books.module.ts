@@ -3,6 +3,7 @@ import {BooksLayoutComponent} from './books-layout.component';
 import {BooksListComponent} from './books-list/books-list.component';
 import {BooksService} from './books.service';
 import {CommonModule} from '@angular/common';
+import {ToastrService} from 'ngx-toastr';
 
 const components = [
   BooksLayoutComponent,
@@ -14,7 +15,7 @@ const components = [
     CommonModule
   ],
   declarations: [components],
-  providers: [BooksService],
+  providers: [BooksService,ToastrService],
   exports: []
 })
 export class BooksModule{}
