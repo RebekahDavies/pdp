@@ -10,13 +10,16 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import { JwtModule } from '@auth0/angular-jwt';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,16 @@ import {ToastrModule} from 'ngx-toastr';
     BooksModule,
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: function  tokenGetter() {
+          return     localStorage.getItem('access_token');
+          },
+        allowedDomains: ['localhost:3000'],
+        disallowedRoutes: ['http://localhost:3000/api/auth/login']
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

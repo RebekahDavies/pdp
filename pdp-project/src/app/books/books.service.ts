@@ -29,7 +29,7 @@ import { ToastrService } from 'ngx-toastr';
         headers.append('Access-Control-Allow-Origin', '*');
       }
     }
-    const resp = this.httpClient.get(this.baseUrl + '/1', {headers: this.headers, observe: 'response'});
+    const resp = this.httpClient.get(this.baseUrl, {headers: this.headers, observe: 'response'});
     return resp.pipe(
       map((res ) => {
         if(res.status === 200) {
