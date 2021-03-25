@@ -1,0 +1,13 @@
+<p>Welcome!</p>
+
+<app-sign-in
+  *ngIf="!loggedIn()"
+  (login)="login($event.email, $event.password)"
+></app-sign-in>
+
+<app-sign-up
+  *ngIf="!loggedIn()"
+
+></app-sign-up>
+
+<button *ngIf="loggedIn()">Logout</button>

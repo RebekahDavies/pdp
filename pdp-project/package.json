@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "api": "json-server e2e/src/api/db.json --routes e2e/src/api/routes.json --no-cors=true"
+    "api": "json-server e2e/src/api/db.json --routes e2e/src/api/routes.json --no-cors=true",
+    "mock-server": "json-server --watch e2e/src/api/db.json --routes e2e/src/api/routes.json",
+    "start-auth": "node e2e/src/api/server.js"
   },
   "private": true,
   "dependencies": {
@@ -20,8 +22,10 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@auth0/angular-jwt": "^5.0.2",
     "bootstrap": "^4.6.0",
     "json-server": "^0.16.3",
+    "jsonwebtoken": "^8.5.1",
     "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
