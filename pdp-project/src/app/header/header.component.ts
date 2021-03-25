@@ -18,9 +18,11 @@ export class HeaderComponent implements OnInit {
   }
 
   login(email: string, password: string) {
-    console.log('click');
-    this.auth.login(email, password).subscribe((accessToken) => console.log('Hellow user with token: ' + accessToken))
+    this.auth.login(email, password).subscribe((accessToken) => console.log('Hellow user with token: ' + accessToken));
   }
 
+  signUp(email: string, passowrd: string){
+    this.auth.register(email, passowrd);
+  }
 }
 
