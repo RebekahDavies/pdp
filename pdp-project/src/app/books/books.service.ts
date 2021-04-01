@@ -22,6 +22,7 @@ import { ToastrService } from 'ngx-toastr';
   getBooks(headers?: HttpHeaders): Observable<Book[]> {
     // add these headers if they don't exist in the given headers object
     if (headers) {
+      // add headers if not exist
       if (!headers.has('content-type')) {
         headers.append('content-type', 'application.json');
       }
@@ -47,7 +48,7 @@ import { ToastrService } from 'ngx-toastr';
         }
         else {
           console.log('booooooo');
-          this.toastr.error('Boo!' + res.statusText, res.status.toString());
+          this.toastr.error('Error!' + res.statusText, res.status.toString());
         }
       })
     );

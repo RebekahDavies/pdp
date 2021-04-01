@@ -1,13 +1,15 @@
-<p>Welcome!</p>
+<div class="header__panel">
+  <h1>Welcome!</h1>
 
-<app-sign-in
-  *ngIf="!loggedIn()"
-  (login)="login($event.email, $event.password)"
-></app-sign-in>
+  <app-sign-in
+    *ngIf="!loggedIn()"
+    (login)="login($event.email, $event.password)"
+  ></app-sign-in>
 
-<app-sign-up
-  *ngIf="!loggedIn()"
+  <app-sign-up
+    *ngIf="!loggedIn()"
 
-></app-sign-up>
+  ></app-sign-up>
 
-<button *ngIf="loggedIn()">Logout</button>
+  <button *ngIf="loggedIn()">Logout</button>
+</div>
